@@ -55,6 +55,7 @@ public class UserServiseImpl implements UserServise {
     }
 
     @Override
+    @Transactional
     public User findByUsername(String username) {
         return userDao.findByUsername(username);
     }
