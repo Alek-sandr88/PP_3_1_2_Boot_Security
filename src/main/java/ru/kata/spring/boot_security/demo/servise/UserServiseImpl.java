@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.servise;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.dao.UserDao;
@@ -13,6 +14,7 @@ import java.util.List;
 public class UserServiseImpl implements UserServise {
 
     private UserDao userDao;
+
 
     @Autowired
     public void setUserDao(UserDao userDao) {
@@ -48,8 +50,8 @@ public class UserServiseImpl implements UserServise {
     }
 
     @Override
-    public List<Role> listRoles() {
-        return userDao.listRoles();
+    public List<Role> getListRole() {
+        return userDao.getListRole();
     }
 
     @Override

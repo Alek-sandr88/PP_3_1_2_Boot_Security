@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.servise.UserServise;
@@ -22,9 +23,10 @@ public class UserTest implements ApplicationRunner {
     }
 
     @Override
+    @Transactional
     public void run(ApplicationArguments args) {
-        Role roleAdmin = new Role( "ROLE_ADMIN");
-        Role roleUser = new Role( "ROLE_USER");
+        Role roleAdmin = new Role("ROLE_ADMIN");
+        Role roleUser = new Role("ROLE_USER");
 
         Set<Role> rolAdmin = new HashSet<>();
         Set<Role> rolUser = new HashSet<>();
@@ -32,14 +34,14 @@ public class UserTest implements ApplicationRunner {
         rolAdmin.add(roleAdmin);
         rolUser.add(roleUser);
 
-        User UserRolAdmin = new User("Ivan", "user",
-                "Ivanov", "ivan@iv", rolAdmin);
+        User userRolAdmin = new User("admin", "admin",
+                "admin", "admin", rolAdmin);
 
-        User userRolUser = new User("Olga", "user",
-                "Sidorova", "ol@ga", rolUser);
+        User userRolUser = new User("user", "user",
+                "user", "user", rolUser);
 
 
-        userServise.saveUser(UserRolAdmin);
+        userServise.saveUser(userRolAdmin);
         userServise.saveUser(userRolUser);
 
     }

@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.servise;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
@@ -16,7 +15,7 @@ public interface UserServise {
     void removeUserById(Long id);
     public void updateUser(User updatedUser);
 
-    public List<Role> listRoles();
+    public List<Role> getListRole();
 
     User findByUsername(String username);
 }

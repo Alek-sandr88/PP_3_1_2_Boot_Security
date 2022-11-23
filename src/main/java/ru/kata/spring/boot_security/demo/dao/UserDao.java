@@ -16,7 +16,7 @@ public interface UserDao {
     void updateUser(User updatedUser);
 
 
-    public List<Role> listRoles();
+    public List<Role> getListRole();
 
     User findByUsername(String username);
 }
