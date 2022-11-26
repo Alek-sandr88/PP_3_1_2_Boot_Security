@@ -6,17 +6,18 @@ import ru.kata.spring.boot_security.demo.model.User;
 import java.util.List;
 
 public interface UserServise {
-    User getUserById(Long id);
-
     List<User> getAllUsers();
 
-    void saveUser(User user);
+    Object getUserById(long id);
 
-    void removeUserById(Long id);
-    public void updateUser(User updatedUser);
+    void addUser(User user);
+
+    void removeUser(long id);
+
+    void updateUser(User user);
 
     User findByUsername(String username);
 
-    User passwordEncoder(User user);
+    User passwordCoder(User user);
 
 }

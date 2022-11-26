@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.servise;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,56 +11,52 @@ import java.util.List;
 @Service
 public class UserServiseImpl implements UserServise {
 
-    private UserDao userDao;
-    private PasswordEncoder passwordEncoder;
+    private final UserDao userDAO;
+    private final RoleServise roleService;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+    public UserServiseImpl(UserDao userDAO, RoleServise roleService, PasswordEncoder passwordEncoder) {
+        this.userDAO = userDAO;
+        this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Autowired
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
-    }
-
     @Override
-    public User getUserById(Long id) {
-        return userDao.getUserById(id);
+    public User passwordCoder(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return user;
     }
 
     @Override
     public List<User> getAllUsers() {
-        return userDao.getAllUsers();
+        return userDAO.getAllUsers();
+    }
+
+    @Override
+    public User getUserById(long id) {
+        return userDAO.getUserById(id);
     }
 
     @Override
     @Transactional
-    public void saveUser(User user) {
-        userDao.saveUser(passwordEncoder(user));
+    public void addUser(User user) {
+        userDAO.addUser(passwordCoder(user));
     }
 
     @Override
     @Transactional
-    public void removeUserById(Long id) {
-        userDao.removeUserById(id);
+    public void removeUser(long id) {
+        userDAO.removeUser(id);
     }
 
     @Override
     @Transactional
-    public void updateUser(User updatedUser) {
-        userDao.updateUser(updatedUser);
+    public void updateUser(User user) {
+        userDAO.updateUser(passwordCoder(user));
     }
 
     @Override
-    @Transactional
     public User findByUsername(String username) {
-        return userDao.findByUsername(username);
-    }
-
-    @Override
-    public User passwordEncoder(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return user;
+        return userDAO.findByUsername(username);
     }
 }

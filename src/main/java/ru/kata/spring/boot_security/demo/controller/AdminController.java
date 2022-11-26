@@ -9,6 +9,7 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.servise.RoleServise;
 import ru.kata.spring.boot_security.demo.servise.UserServise;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -50,27 +51,26 @@ public class AdminController {
 
     @PostMapping("/create")
     public String create(User user) {
-        userServise.saveUser(user);
+        userServise.addUser(user);
         return "redirect:/admin";
     }
 
     @DeleteMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
-        userServise.removeUserById(id);
+        userServise.removeUser(id);
         return "redirect:/admin";
     }
 
     @GetMapping("/update/{id}")
     public String edit(@PathVariable("id") Long id, Model model) {
-        User user = userServise.getUserById(id);
-        List<Role> listRoles = roleServise.getAllRoles();
-        model.addAttribute("user", user);
-        model.addAttribute("listRoles", listRoles);
+        model.addAttribute("user", userServise.getUserById(id));
+        model.addAttribute("listRoles", roleServise.getAllRoles());
         return "update";
     }
 
     @PatchMapping("/update")
-    public String editUsers(User user) {
+    public String editUsers(@RequestParam("listRoles") ArrayList<Long> roles, User user) {
+        user.setRoles(roleServise.findByIdRoles(roles));
         userServise.updateUser(user);
         return "redirect:/admin";
     }

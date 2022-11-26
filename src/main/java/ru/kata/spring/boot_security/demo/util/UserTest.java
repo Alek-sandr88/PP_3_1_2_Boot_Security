@@ -47,10 +47,10 @@ public class UserTest implements ApplicationRunner {
         User userRolUser = new User("user", "user",
                 "user", "user", rolUser);
 
-        roleServise.saveRole(roleAdmin);
-        roleServise.saveRole(roleUser);
-        userServise.saveUser(userRolAdmin);
-        userServise.saveUser(userRolUser);
+        roleServise.addRole(roleAdmin);
+        roleServise.addRole(roleUser);
+        userServise.addUser(userRolAdmin);
+        userServise.addUser(userRolUser);
 
     }
 }

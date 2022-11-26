@@ -29,11 +29,12 @@
         <td>Roles</td>
         <br>
         <td>
-            <th:block th:each="role : ${listRoles}">
-                <input type="checkbox" name="index" th:value="${role.id}"/>
-                <label th:text="${role.getName()}"></label>
-                <br/>
-            </th:block>
+            <label>Roles:
+                <select size="1" multiple name="listRoles" required="required">
+                    <option selected="selected" value="1">USER</option>
+                    <option value="2">ADMIN</option>
+                </select>
+            </label>
         </td>
         <br/>
         <input type="submit" value="Update"/>
