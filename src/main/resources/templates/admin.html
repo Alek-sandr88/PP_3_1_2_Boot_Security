@@ -32,7 +32,11 @@
                 <td th:each="role : ${user.roles}">
                     <span th:text="${role.name}"> </span></td>
                 <td><a class="button24" th:href="@{admin/update/{id} (id = ${user.id})}">Edit</a></td>
-                <td><a class="button24" th:href="@{admin/delete/{id} (id = ${user.id})}">Delete</a></td>
+                <td>
+                    <form th:method="DELETE" th:action="@{admin/delete/{id} (id = ${user.id})}">
+                        <input type="submit" th:value="Delete"/>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>

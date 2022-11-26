@@ -15,7 +15,8 @@ public interface UserServise {
     void removeUserById(Long id);
     public void updateUser(User updatedUser);
 
-    public List<Role> getListRole();
-
     User findByUsername(String username);
+
+    User passwordEncoder(User user);
+
 }

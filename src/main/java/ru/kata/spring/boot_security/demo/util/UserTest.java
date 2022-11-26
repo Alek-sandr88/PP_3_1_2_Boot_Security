@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.servise.RoleServise;
 import ru.kata.spring.boot_security.demo.servise.UserServise;
 
 import java.util.HashSet;
@@ -16,6 +17,12 @@ import java.util.Set;
 public class UserTest implements ApplicationRunner {
 
     private UserServise userServise;
+    private RoleServise roleServise;
+
+    @Autowired
+    public void setRoleServise(RoleServise roleServise) {
+        this.roleServise = roleServise;
+    }
 
     @Autowired
     public void setUserServise(UserServise userServise) {
@@ -40,7 +47,8 @@ public class UserTest implements ApplicationRunner {
         User userRolUser = new User("user", "user",
                 "user", "user", rolUser);
 
-
+        roleServise.saveRole(roleAdmin);
+        roleServise.saveRole(roleUser);
         userServise.saveUser(userRolAdmin);
         userServise.saveUser(userRolUser);
 
